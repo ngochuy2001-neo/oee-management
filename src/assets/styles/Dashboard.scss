@@ -1,0 +1,25 @@
+.Dashboard{
+  padding: 5px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .generalOEE{
+    flex: 3;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    .totalStatistic{
+      flex: 7;
+    }
+    .totalGaugeChart{
+      flex: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .detailOEE{
+    flex: 7;
+  }
+}

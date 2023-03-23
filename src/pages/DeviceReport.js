@@ -1,8 +1,10 @@
 
-function Device() {
+function DeviceReport() {
   return(
-    <div></div>
+    <div>
+      <p>Device Report</p>
+    </div>
   )
 }
 
-export default Device
+export default DeviceReport

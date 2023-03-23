@@ -1,8 +1,10 @@
 
-function Interuption() {
+function InteruptionReport() {
   return(
-    <div></div>
+    <div>
+      <h1>Interuption Report</h1>
+    </div>
   )
 }
 
-export default Interuption
+export default InteruptionReport

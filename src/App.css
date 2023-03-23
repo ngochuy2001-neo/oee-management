@@ -39,4 +39,7 @@
 
 .mainApp{
   display: flex;
+  height: 95vh;
+  overflow: hidden;
+  background-color: rgb(177, 177, 177);
 }
