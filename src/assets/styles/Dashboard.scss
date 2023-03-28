@@ -4,22 +4,39 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  .generalOEE{
+  .GeneralOEE{
     flex: 3;
-    display: flex;
     background-color: white;
     border-radius: 10px;
+    display: flex;
     .totalStatistic{
-      flex: 7;
+      flex: 6;
+      display: flex;
+      padding: 10px;
+      flex-direction: column;
+      .rowStatistic{
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        .statisticItem{
+          flex: 1;
+          font-size: 25px;
+          .statisticItemIcon{
+            font-size: 25px;
+            margin: 10px;
+          }
+        }
+      }
     }
     .totalGaugeChart{
-      flex: 3;
-      display: flex;
+      background-color: rgb(238, 238, 238);
+      flex: 4;
       justify-content: center;
       align-items: center;
     }
   }
-  .detailOEE{
+  .DetailOEE{
     flex: 7;
   }
 }
