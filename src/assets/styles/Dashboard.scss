@@ -1,42 +1,29 @@
 .Dashboard{
   padding: 5px;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   .GeneralOEE{
-    flex: 3;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 20px;
+    height: 90vh;
     display: flex;
-    .totalStatistic{
-      flex: 6;
-      display: flex;
-      padding: 10px;
-      flex-direction: column;
-      .rowStatistic{
-        display: flex;
-        flex: 1;
-        justify-content: center;
-        align-items: center;
-        .statisticItem{
-          flex: 1;
-          font-size: 25px;
-          .statisticItemIcon{
-            font-size: 25px;
-            margin: 10px;
-          }
-        }
-      }
-    }
-    .totalGaugeChart{
-      background-color: rgb(238, 238, 238);
-      flex: 4;
-      justify-content: center;
-      align-items: center;
-    }
+    flex-direction: row;
+    flex: 3;
   }
   .DetailOEE{
     flex: 7;
+    height: 90vh;
+    display: flex;
+    margin-right: 10px;
+    margin-left: 5px;
+    justify-content: space-between;
+    .OEEDevicePanel{
+      width: 32%;
+      border-radius: 10px;
+      height: 20%;
+      background-color: white;
+    }
   }
 }
