@@ -1,0 +1,44 @@
+.Sidebar{
+  position: fixed;
+  width: 50px;
+  background-color: rgb(0, 0, 131);
+  height: 100%;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  .sidebarLink{
+    display: flex;
+    height: 50px;
+    text-decoration: none;
+    color: white;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px 0px;
+    .iconLink{
+      font-size: 30px;
+    }
+    .titleLink{
+      display: none;
+    }
+    
+  }
+  .active{
+    background-color: blue;
+  }
+  &:hover{
+    width: 250px;
+    transition: 0.3s;
+    .sidebarLink{
+      &:hover{
+        background-color: blue;
+      }
+      justify-content: left;
+    }
+    .iconLink{
+      width: 50px;
+    }
+    .titleLink{
+      display: block;
+    }
+  }
+}
