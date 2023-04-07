@@ -10,6 +10,10 @@ function Sidebar(){
         <FontAwesomeIcon className="iconLink" icon={faChartLine} />
         <p className="titleLink">Dashboard</p>
       </NavLink>
+      <NavLink to={"/map"} className="sidebarLink">
+        <FontAwesomeIcon className="iconLink" icon={faChartLine} />
+        <p className="titleLink">Maps</p>
+      </NavLink>
       <NavLink to={"/report"} className={"sidebarLink"}>
         <FontAwesomeIcon className="iconLink" icon={faClipboard} />
         <p className="titleLink">Report</p>

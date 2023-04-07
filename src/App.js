@@ -5,6 +5,7 @@ import DeviceReport from './pages/DeviceReport'
 import InteruptionReport from './pages/InteruptionReport';
 import Settings from "./pages/Settings"
 import Sidebar from './components/Sidebar';
+import Map from './pages/Map';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <div className='mainApp'>
         <Routes>
           <Route path='/' element={<Dashboard />} />
+          <Route path='/map' element={<Map />} />
           <Route path='/devices' element={<DeviceReport />}/>
           <Route path='/interuptions' element={<InteruptionReport/>}/>
           <Route path='/settings' element={<Settings />}/>

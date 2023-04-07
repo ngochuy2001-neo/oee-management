@@ -1,19 +1,37 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement, Legend, Tooltip} from "chart.js";
-import { faTemperatureEmpty } from "@fortawesome/free-solid-svg-icons";
+import { faBagShopping, faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { useState,useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function TotalOEE() {
-  Chart.register(ArcElement, Legend, Tooltip)
+function TotalOEE( props ) {
+  Chart.register(ArcElement, Tooltip)
+  const [percentage, setPercentage] = useState(0);
+  const [color, setColor] = useState("#ff0000")
+
+   useEffect(() => {
+    if (props.oeescore >= 80){
+      setColor("#1b9c02")
+    }
+    else if (props.oeescore >= 60){
+      setColor("#ecf000")
+    }
+    else{
+      setColor("#ff0000")
+    }
+  },[props.oeescore])
+
   let data = {
     labels:["OEE", "Empty"],
     datasets: [
       {
         label: "Total OEE",
         backgroundColor: [
-          "#0c8f00",
-          "#ff0000"
+          color,
+          "#968a8a"
         ],
-        data: [60, 40],
+        data: [props.oeescore, 100 - props.oeescore],
         circumference: 180,
         rotation: 270,
         cutout: "80%"
@@ -22,25 +40,26 @@ function TotalOEE() {
   };
 
   let options = {
-
+    
   }
 
   let gaugeText = {
     id : "gaugeText",
     beforeDatasetsDraw(chart, args, pluginOptions) {
-      const {ctx, chartArea: {top, bottom, left, right, width, height}} = chart;
+      const {ctx, data, chartArea: {top, bottom, left, right, width, height}} = chart;
 
       const xCenter = chart.getDatasetMeta(0).data[0].x
       const yCenter = chart.getDatasetMeta(0).data[0].y
 
       ctx.save();
       ctx.fillStyle = 'gray';
-      ctx.font =  "bold 16px sans-serif";
+      ctx.font =  "bold 60px sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = 'baseline';
-      ctx.fillText('Test', xCenter, yCenter - 15)
+      ctx.fillText(data.datasets[0].data[0], xCenter, yCenter - 5)
     }
   }
+
 
   const textCenter = {
     id: 'textCenter',
@@ -54,7 +73,20 @@ function TotalOEE() {
   }
   return(
     <div className="TotalOEE">
+      <h1 className="totalOEEHeader">Total OEE</h1>
       <Doughnut data={data} options={options} plugins={[gaugeText]}/>
+      <div className="TotalOEEParameter">
+        <FontAwesomeIcon className="parameterIcon" icon={faBagShopping} />
+        <p>{props.producedproduct} pcs</p>
+      </div>
+      <div className="TotalOEEParameter">
+        <FontAwesomeIcon className="parameterIcon" icon={faClock} />
+        <p>{props.workedtime} (63.57%)</p>
+      </div>
+      <div className="TotalOEEParameter">
+        <FontAwesomeIcon className="parameterIcon" icon={faGaugeHigh} />
+        <p>{props.productperminute} pcs/min</p>
+      </div>
     </div>
   )
 }
