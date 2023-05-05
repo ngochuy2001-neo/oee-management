@@ -1,0 +1,17 @@
+.InteruptionReport{
+  background-color: white;
+  width: 100vw;
+  height: 95vh;
+  border-radius: 10px;
+  padding: 10px;
+  .interuptionsInput{
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    .interuptionsMultiSelect{
+      width: 33%;
+      overflow: visible;
+      margin-right: 10px;
+    }
+  }
+}

@@ -1,44 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .Sidebar{
   position: fixed;
-  width: 50px;
-  background-color: rgb(0, 0, 131);
+  width: 15%;
+  background-color: #142850;
   height: 100%;
-  transition: 0.3s;
   display: flex;
   flex-direction: column;
-  .sidebarLink{
+  z-index: 100000;
+  .sidebarHeader{
+    height: 15%;
     display: flex;
-    height: 50px;
-    text-decoration: none;
-    color: white;
     align-items: center;
-    justify-content: space-around;
-    margin: 10px 0px;
-    .iconLink{
-      font-size: 30px;
-    }
-    .titleLink{
-      display: none;
-    }
-    
+    justify-content: center;
+    font-family: 'Lobster', cursive;
+    font-size: 32px;
+    color: #DAE1E7;
+    border-bottom: 1px solid #DAE1E7;
   }
-  .active{
-    background-color: blue;
-  }
-  &:hover{
-    width: 250px;
-    transition: 0.3s;
+  .sidebarGroup{
+    border-bottom: 1px solid #DAE1E7;
+    .active{
+      background-color: #27496D;
+    }
     .sidebarLink{
+      display: flex;
+      height: 50px;
+      text-decoration: none;
+      color: #DAE1E7;
+      align-items: center;
+      margin: 10px 0px;
       &:hover{
-        background-color: blue;
+        background-color: #27496D;
       }
-      justify-content: left;
-    }
-    .iconLink{
-      width: 50px;
-    }
-    .titleLink{
-      display: block;
+      .iconLink{
+        font-size: 30px;
+        width: 30%;
+      }
+      .titleLink{
+        width: 70%;
+        text-align: left;
+      }
     }
   }
 }

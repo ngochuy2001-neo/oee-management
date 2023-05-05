@@ -1,13 +1,12 @@
 import { Doughnut } from "react-chartjs-2";
-import { Chart, ArcElement, Legend, Tooltip} from "chart.js";
+import { Chart, ArcElement, Tooltip} from "chart.js";
 import { faBagShopping, faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { useState,useEffect } from "react";
+import { useState,useEffect, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function TotalOEE( props ) {
   Chart.register(ArcElement, Tooltip)
-  const [percentage, setPercentage] = useState(0);
   const [color, setColor] = useState("#ff0000")
 
    useEffect(() => {
@@ -40,13 +39,17 @@ function TotalOEE( props ) {
   };
 
   let options = {
-    
+    plugins:{
+      legend: {
+        display: false
+      }
+    }
   }
 
   let gaugeText = {
     id : "gaugeText",
     beforeDatasetsDraw(chart, args, pluginOptions) {
-      const {ctx, data, chartArea: {top, bottom, left, right, width, height}} = chart;
+      const {ctx, data} = chart;
 
       const xCenter = chart.getDatasetMeta(0).data[0].x
       const yCenter = chart.getDatasetMeta(0).data[0].y
@@ -61,16 +64,7 @@ function TotalOEE( props ) {
   }
 
 
-  const textCenter = {
-    id: 'textCenter',
-    beforeDatasetsDraw(chart, args, pluginOptions){
-      const {ctx, data} = chart;
-      ctx.save();
-      ctx.font = 'bolder 30px sans-serif';
-      ctx.fillStyle = "red";
-      ctx.fillText("text", chart.getDatasetMeta(0).data[0].x);
-    }
-  }
+  
   return(
     <div className="TotalOEE">
       <h1 className="totalOEEHeader">Total OEE</h1>
@@ -91,4 +85,4 @@ function TotalOEE( props ) {
   )
 }
 
-export default TotalOEE;
+export default memo(TotalOEE);

@@ -9,7 +9,8 @@ function Dashboard(){
   const formatter = new Intl.NumberFormat('en-US', {
     maximumFractionDigits: 3
   })
-  const [userInformations, setUserInformations] = useState("Hello guys!");
+
+
   const [totalOEEInformations, setTotalOEEInformations] = useState({
   'totalOEE': {
       "oeescore": 0,
@@ -18,15 +19,7 @@ function Dashboard(){
       "productperminute": 0
     }
   });
-  const [devicesManage, setDevicesManage] = useState([
-     {
-        "deviceID": 0,
-        "devicename": "default",
-        "producedproduct": 0,
-        "workedtime": "0m",
-        "productperminute": 0 
-      }
-  ])
+  const [devicesManage, setDevicesManage] = useState()
   useEffect(() => {
     function fetchData() {
       axios.get("http://localhost:4000")
@@ -38,7 +31,8 @@ function Dashboard(){
         })
     }
     
-    
+
+
     fetchData();
 
     const interval = setInterval(() => {
@@ -47,29 +41,35 @@ function Dashboard(){
 
     return () => clearInterval(interval);    
   },[])
+  
 
-  console.log(devicesManage)
   return(
     <div className="Dashboard">
-      <div className="deviceOEE">
-        {devicesManage.map((data, i) => {
-          return(
-            <DetailOEE key={i}
-              devicename={data.devicename}
-              selfoeescore={data.selfoeescore}
-              producedproduct={data.producedproduct}
-              workedtime={data.workedtime}
-              productperminute={data.productperminute}
-            />
-          )
-        })}
-      </div>
       <TotalOEE 
         oeescore={totalOEEInformations.oeescore}
         producedproduct = {formatter.format(totalOEEInformations.producedproduct)}
         workedtime = {totalOEEInformations.workedtime}
         productperminute = {totalOEEInformations.productperminute}
       />
+      {
+        devicesManage ?
+        <div className="deviceOEE">
+          {devicesManage.map((data, i) => {
+            return(
+              <DetailOEE key={i}
+                devicename={data.devicename}
+                selfoeescore={data.selfoeescore}
+                producedproduct={data.producedproduct}
+                workedtime={data.workedtime}
+                productperminute={data.productperminute}
+                deviceAvailability = {data.deviceAvailability}
+                devicePerformance = {data.devicePerformance}
+                deviceQuality = {data.deviceQuality}
+              />
+            )
+          })}
+        </div> : null
+      }
     </div> 
   )
 }
