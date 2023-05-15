@@ -158,7 +158,7 @@ function DetailOEE( {devicename, selfoeescore, producedproduct, workedtime, prod
       const yCenter = chart.getDatasetMeta(0).data[0].y
 
       ctx.save();
-      ctx.fillStyle = 'gray';
+      ctx.fillStyle = 'black';
       ctx.font =  "bold 30px sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = 'baseline';
@@ -192,15 +192,15 @@ function DetailOEE( {devicename, selfoeescore, producedproduct, workedtime, prod
           </div>
         </div>
         <div className="chartProps">
-          <p>Availability: {deviceAvailability}</p>
+          <p>Availability: <b>{deviceAvailability}</b></p>
           <div className="barChartBackground">
             <div className="chartValue chartAvailability" style={barChartAvailability}></div>
           </div>
-          <p>Performance: {devicePerformance}</p>
+          <p>Performance: <b>{devicePerformance}</b></p>
           <div className="barChartBackground">
             <div className="chartValue" style={barChartPerformance}></div>
           </div>
-          <p>Quality: {deviceQuality}</p>
+          <p>Quality: <b>{deviceQuality}</b></p>
           <div className="barChartBackground">
             <div className="chartValue" style={barChartQuality}></div>
           </div>

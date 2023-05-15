@@ -7,6 +7,8 @@ import { Bar, Doughnut } from "react-chartjs-2"
 import { faBarChart } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import DeviceSelector from "../components/DeviceSelector"
+import ReportBarChart from "../components/ReportBarChart"
+import ReportGaugeChart from "../components/ReportGaugeChart"
 
 function DeviceReport() {
   Chart.register(
@@ -24,19 +26,13 @@ function DeviceReport() {
   const [selectedMachine, setSelectedMachine] = useState({value: "", label: "Default"})
   const [barChartLabel, setBarChartLabel] = useState([])
   const [barChartData, setBarChartData] = useState([])
-  const [deviceData, setDeviceData] = useState(
-    {
-      shiftoeescore: 0,
-      shiftAvailability: 0,
-      shiftPerformance: 0,
-      shiftQuality: 0,
-      runningTime: "00:00:00",
-      downTime: "00:00:00",
-      runCounter: 0,
-      stopCounter: 0
-    }
-  )
+  const [deviceData, setDeviceData] = useState({})
   const [gaugeColor, setGaugeColor] = useState("#000000")
+
+
+  const handleDeviceData = (data) => {
+    setDeviceData(data)
+  }
 
   useEffect(() => {
     axios.get("http://localhost:4000/api/report?machineID=" + selectedMachine["value"])
@@ -78,22 +74,6 @@ function DeviceReport() {
       setGaugeColor("#ff0000")
     }
   },[deviceData.shiftoeescore])
-
-  const handleClickSubmit = () =>{
-    axios.get("http://localhost:4000/api/report?machineID=" + selectedMachine["value"] + "&shift=" + selectedShift["value"])
-      .then((res) => {
-        const data = res.data
-        const keys = Object.keys(data.production)
-        setBarChartLabel(keys)
-        const value = Object.values(data.production)
-        setBarChartData(value)
-        setDeviceData(data.shiftOEE)
-        setChart(true)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
   
   const totalOEEData = {
     labels: ["OEE", "Empty"],
@@ -109,6 +89,9 @@ function DeviceReport() {
       }
     ]
   }
+
+  useEffect(() => {
+  }, [deviceData])
 
   const barData = {
     labels: barChartLabel,
@@ -157,7 +140,13 @@ function DeviceReport() {
 
   return(
     <div className="DeviceReport">
-      <DeviceSelector />
+      <DeviceSelector machineOptionsData={machineOptions} onDeviceData={handleDeviceData}/>
+      {Object.keys(deviceData).length > 0 ? 
+      <div className="reportZone">
+        <ReportBarChart data={deviceData.production}/> 
+        <ReportGaugeChart data={deviceData.shiftOEE} />
+      </div>
+      : <div></div>}
     </div>
   )
 }

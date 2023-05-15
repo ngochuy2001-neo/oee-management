@@ -5,6 +5,7 @@ const cors = require('cors');
 const querystring = require('querystring')
 
 app.use(cors())
+app.use(express.json())
 
 app.get('/', (req, res) => {
   res.json({
@@ -14,7 +15,10 @@ app.get('/', (req, res) => {
       "oeescore": 80,
       "producedproduct": 9000,
       "workedtime": "3h 4m",
-      "productperminute": 61.4
+      "productperminute": 61.4,
+      "totalAvailability": Math.floor(Math.random() * 100),
+      "totalPerformance":  Math.floor(Math.random() * 100),
+      "totalQuality":  Math.floor(Math.random() * 100),
     },
     'devicesList': [
       '123123',
@@ -92,6 +96,32 @@ app.get('/api/machine', (req, res) => {
 
 })
 
+app.get('/machine', (req,res) => {
+  const machineInformation = [
+    {
+      machineID: 123123,
+      added: "23/02/2023",
+      machineName: 'Assembly machine'
+    },
+    {
+      machineID: 123345,
+      added: "23/02/2023",
+      machineName: 'CNC machine'
+    },
+    {
+      machineID: 123456,
+      added: "23/02/2023",
+      machineName: 'Laser cutting machine'
+    },
+  ]
+  res.send(machineInformation)
+})
+
+app.post("/machine", (req,res) => {
+  console.log(req.body.machineID)
+  res.send("Ok! It's fine")
+})
+
 app.get('/api/report', (req, res) => {
   const report = {
     123123: {
@@ -166,11 +196,16 @@ app.get('/api/report', (req, res) => {
   const objectURL = url.parse(req.url, true)
   const query = objectURL.query
   // console.log(query)
-  if (!query["shift"]){
-    res.json(report[query["machineID"]])
+  if (query["machineID"]){
+    if(query["shift"]){
+      res.json(report[query["machineID"]][query["shift"]])
+    }
+    else{
+      res.json(report[query["machineID"]])
+    }
   }
   else{
-    res.json(report[query["machineID"]][query["shift"]])
+    res.send("ConnectOK")
   }
 })
 
@@ -244,7 +279,6 @@ app.get("/interuptions", (req, res) => {
   const objectURL = url.parse(req.url, true)
   const query = objectURL.query
   const machineIds = query.machineID.split(",")
-  console.log(query)
   const shiftid = []
   
   if (machineIds[0] != ''){

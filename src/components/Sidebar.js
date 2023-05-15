@@ -14,10 +14,10 @@ function Sidebar(){
           <FontAwesomeIcon className="iconLink" icon={faChartLine} />
           <p className="titleLink">Dashboard</p>
         </NavLink>
-        <NavLink to={"/map"} className="sidebarLink">
+        {/* <NavLink to={"/map"} className="sidebarLink">
           <FontAwesomeIcon className="iconLink" icon={faMap} />
           <p className="titleLink">Location</p>
-        </NavLink>
+        </NavLink> */}
       </div>
       <div className="sidebarGroup">
         <NavLink to={"/devices"} className={"sidebarLink"}>

@@ -7,9 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function TotalOEE( props ) {
   Chart.register(ArcElement, Tooltip)
-  const [color, setColor] = useState("#ff0000")
 
-   useEffect(() => {
+  const [color, setColor] = useState("#ff0000")
+  const [availabilityColor, setAvailabilityColor] = useState("#000000")
+  const [performanceColor, setPerformanceColor] = useState("#000000")
+  const [qualityColor, setQualityColor] = useState("#000000")
+
+  useEffect(() => {
     if (props.oeescore >= 80){
       setColor("#1b9c02")
     }
@@ -20,6 +24,36 @@ function TotalOEE( props ) {
       setColor("#ff0000")
     }
   },[props.oeescore])
+
+  useEffect(() => {
+    if (props.totalAvailability >= 80){
+      setAvailabilityColor("#0ba600")
+    }
+    else if (props.totalAvailability >= 60){
+      setAvailabilityColor("#f7eb05")
+    }
+    else{
+      setAvailabilityColor("#d90016")
+    }
+    if (props.totalPerformance >= 80){
+      setPerformanceColor("#0ba600")
+    }
+    else if (props.totalPerformance >= 60){
+      setPerformanceColor("#f7eb05")
+    }
+    else{
+      setPerformanceColor("#d90016")
+    }
+    if (props.totalQuality >= 80){
+      setQualityColor("#0ba600")
+    }
+    else if (props.totalQuality >= 60){
+      setQualityColor("#f7eb05")
+    }
+    else{
+      setQualityColor("#d90016")
+    }
+  }, [props.totalAvailability, props.totalPerformance, props.totalQuality])
 
   let data = {
     labels:["OEE", "Empty"],
@@ -55,7 +89,7 @@ function TotalOEE( props ) {
       const yCenter = chart.getDatasetMeta(0).data[0].y
 
       ctx.save();
-      ctx.fillStyle = 'gray';
+      ctx.fillStyle = 'black';
       ctx.font =  "bold 60px sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = 'baseline';
@@ -80,6 +114,93 @@ function TotalOEE( props ) {
       <div className="TotalOEEParameter">
         <FontAwesomeIcon className="parameterIcon" icon={faGaugeHigh} />
         <p>{props.productperminute} pcs/min</p>
+      </div>
+      <div className="TotalOEEParameter">
+        <p style={{fontWeight: "bolder"}}>Availability</p>
+        <div className="statisticBarChart" style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+          <div 
+            className="horizontalBarChart"
+            style={{
+              height: "30px",
+              backgroundColor: "gray",
+              marginTop: "5px",
+              flex: 1
+            }}
+          >
+            <div className="insideChart"
+              style={{
+                height: "100%",
+                width: props.totalAvailability.toString() +"%",
+                backgroundColor: availabilityColor,
+                transition: "1s"
+              }}
+            ></div>
+          </div>
+          <p
+            style={{
+              marginLeft: "5px",
+              fontWeight: "bolder" 
+            }}
+          >{props.totalAvailability}%</p>
+        </div>
+      </div>
+      <div className="TotalOEEParameter">
+        <p style={{fontWeight: "bolder"}}>Performance</p>
+        <div className="statisticBarChart" style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+          <div 
+            className="horizontalBarChart"
+            style={{
+              height: "30px",
+              backgroundColor: "gray",
+              marginTop: "5px",
+              flex: 1
+            }}
+          >
+            <div className="insideChart"
+              style={{
+                height: "100%",
+                width: props.totalPerformance + "%",
+                backgroundColor: performanceColor,
+                transition: "1s"
+              }}
+            ></div>
+          </div>
+          <p
+            style={{
+              marginLeft: "5px",
+              fontWeight: "bolder" 
+            }}
+          >{props.totalPerformance}%</p>
+        </div>
+      </div>
+      <div className="TotalOEEParameter">
+        <p style={{fontWeight: "bolder"}}>Quality</p>
+        <div className="statisticBarChart" style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+          <div 
+            className="horizontalBarChart"
+            style={{
+              height: "30px",
+              backgroundColor: "gray",
+              marginTop: "5px",
+              flex: 1
+            }}
+          >
+            <div className="insideChart"
+              style={{
+                height: "100%",
+                width: props.totalQuality.toString() + "%",
+                backgroundColor: qualityColor,
+                transition: "1s" 
+              }}
+            ></div>
+          </div>
+          <p
+            style={{
+              marginLeft: "5px",
+              fontWeight: "bolder" 
+            }}
+          >{props.totalQuality}%</p>
+        </div>
       </div>
     </div>
   )

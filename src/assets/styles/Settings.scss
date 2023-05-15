@@ -1,0 +1,55 @@
+.Settings{
+  margin: 10px;
+  width: 100%;
+  background-color: white;
+  height: 98vh;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px gray;
+  display: flex;
+  .SettingsSideBar{
+    width: 20%;
+    height: 100%;
+    background-color: rgb(233, 233, 233);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .tabSidebar{
+      border: none;
+      height: 7%;
+      background-color: rgb(233, 233, 233);
+      margin: 0px 10px;
+      font-size: 20px;
+      border-radius: 10px;
+      color: gray;
+      &:hover{
+        background-color: rgb(185, 185, 185);
+        transition: 0.2s;
+        color: black;
+      }
+      &.active{
+        transition: 0.3s;
+        color: white;
+        background-color: #007aff;
+        font-weight: bolder;
+      }
+    }
+  }
+  .MachineSettings{
+    width: 100%;
+    .machineList{
+      margin: 10px;
+    }
+    .machineSettingsInput{
+      display: flex;
+      align-items: center;
+      *{
+        margin: 5px 5px;
+      }
+      .machineSettingSubmit{
+        height: 50px;
+      }
+    }
+  }
+}

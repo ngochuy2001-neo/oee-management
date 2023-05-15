@@ -12,13 +12,14 @@ function Dashboard(){
 
 
   const [totalOEEInformations, setTotalOEEInformations] = useState({
-  'totalOEE': {
       "oeescore": 0,
       "producedproduct": 0,
       "workedtime": "0m",
-      "productperminute": 0
-    }
-  });
+      "productperminute": 0,
+      totalAvailability: 0,
+      totalPerformance: 0,
+      totalQuality: 0
+    });
   const [devicesManage, setDevicesManage] = useState()
   useEffect(() => {
     function fetchData() {
@@ -26,6 +27,7 @@ function Dashboard(){
         .then(res => {
           const total = res.data.totalOEE
           const devices = res.data.devices
+          console.log(total)
           setTotalOEEInformations(total)
           setDevicesManage(devices)
         })
@@ -50,6 +52,9 @@ function Dashboard(){
         producedproduct = {formatter.format(totalOEEInformations.producedproduct)}
         workedtime = {totalOEEInformations.workedtime}
         productperminute = {totalOEEInformations.productperminute}
+        totalAvailability = {totalOEEInformations.totalAvailability}
+        totalPerformance = {totalOEEInformations.totalPerformance}
+        totalQuality = {totalOEEInformations.totalQuality}
       />
       {
         devicesManage ?
